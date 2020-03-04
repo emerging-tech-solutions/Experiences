@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emgerging.Conversational.UW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedServices", "Shared\SharedServices\SharedServices.csproj", "{3B45AA30-CFDC-46C6-BECC-89163D0154E0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{25F19F0F-9DA2-42EF-BFA7-0477857DD19D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,7 +79,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4D4FFBF5-AF77-454B-A4E5-8D7875622B00} = {370889CA-928D-4B67-B482-046C689FC514}
-		{3B45AA30-CFDC-46C6-BECC-89163D0154E0} = {370889CA-928D-4B67-B482-046C689FC514}
+		{3B45AA30-CFDC-46C6-BECC-89163D0154E0} = {25F19F0F-9DA2-42EF-BFA7-0477857DD19D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99D1A6E6-A391-4472-8124-8049F6F62C26}
