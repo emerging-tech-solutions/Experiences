@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedServices;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,11 +31,13 @@ namespace Emgerging.Conversational.UWP
         bool isCapturingAudio = false;
         bool capturingStoppedForAudioState = false;
         LowLagMediaRecording _mediaRecording;
-
+        SpeechServices speechServices;
         public MainPage()
         {
             this.InitializeComponent();
             InitializeMediaElements();
+            speechServices = new SpeechServices();
+            speechServices.Authenticate();
         }
 
         private async Task InitializeMediaElements()
@@ -57,9 +60,9 @@ namespace Emgerging.Conversational.UWP
                 var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
 
-                StorageFile file = await localFolder.CreateFileAsync("audio.mp3", CreationCollisionOption.GenerateUniqueName);
+                StorageFile file = await localFolder.CreateFileAsync("audio.wav", CreationCollisionOption.GenerateUniqueName);
                 _mediaRecording = await mediaCapture.PrepareLowLagRecordToStorageFileAsync(
-                        MediaEncodingProfile.CreateMp3(AudioEncodingQuality.High), file);
+                        MediaEncodingProfile.CreateWav(AudioEncodingQuality.Low), file);
                 isCapturingAudio = true;
                 await _mediaRecording.StartAsync();
             }
