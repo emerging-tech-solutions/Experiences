@@ -13,11 +13,15 @@ namespace SharedServices.Services
     {
         private string APIKey = "e1d70faa757a4424bae02fc3284b0cbc";
         private string Region = "northcentralus";
-        private string APIEndPoint = "$https://{Region}.api.cognitive.microsoft.com";
+        //private string APIEndPoint = $"https://{Region}.api.cognitive.microsoft.com";
+        private string APITokenEndPoint = "";
+        private string APIEndPoint = "";
         private string token;
 
         public async void Authenticate()
         {
+            APIEndPoint = $"https://{Region}.stt.speech.microsoft.com";
+            APITokenEndPoint = $"https://{Region}.api.cognitive.microsoft.com";
             this.token = await FetchTokenAsync("/sts/v1.0/issuetoken");
         }
 
@@ -26,17 +30,16 @@ namespace SharedServices.Services
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKey);
-                UriBuilder uriBuilder = new UriBuilder(APIEndPoint + fetchUri);
+                UriBuilder uriBuilder = new UriBuilder(APITokenEndPoint + fetchUri);
 
                 var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null);
                 Console.WriteLine("Token Uri: {0}", uriBuilder.Uri.AbsoluteUri);
                 return await result.Content.ReadAsStringAsync();
             }
         }
-        private async Task<SpeechSynthesisResult> SynthesiseSpeech(byte[] array, string lang ="en-US")
+        public async Task<SpeechSynthesisResult> SynthesiseSpeech(byte[] array, string lang ="en-US")
         {
-            //https://northcentralus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=en-US
-            var baseURI = APIEndPoint + "/speech/recognition/conversation/cognitiveservices/v1?language={lang}";
+            var baseURI = APIEndPoint + $"/speech/recognition/conversation/cognitiveservices/v1?language={lang}";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKey);
             byte[] byteData = array;

@@ -1,4 +1,5 @@
 ﻿using SharedServices;
+using SharedServices.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +33,8 @@ namespace Emgerging.Conversational.UWP
         bool capturingStoppedForAudioState = false;
         LowLagMediaRecording _mediaRecording;
         SpeechServices speechServices;
+        StorageFile audioFile;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -60,9 +63,9 @@ namespace Emgerging.Conversational.UWP
                 var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
 
-                StorageFile file = await localFolder.CreateFileAsync("audio.wav", CreationCollisionOption.GenerateUniqueName);
+                audioFile = await localFolder.CreateFileAsync("audioPayload.wav", CreationCollisionOption.ReplaceExisting);
                 _mediaRecording = await mediaCapture.PrepareLowLagRecordToStorageFileAsync(
-                        MediaEncodingProfile.CreateWav(AudioEncodingQuality.Low), file);
+                        MediaEncodingProfile.CreateWav(AudioEncodingQuality.Low), audioFile);
                 isCapturingAudio = true;
                 await _mediaRecording.StartAsync();
             }
@@ -70,7 +73,29 @@ namespace Emgerging.Conversational.UWP
             {
                 await _mediaRecording.StopAsync();
                 await _mediaRecording.FinishAsync();
+                SendAudioForTranslation(audioFile.Path);
                 isCapturingAudio = false;
+            }
+        }
+
+        private async void SendAudioForTranslation(string filePath)
+        {
+            using (FileStream stream = new FileStream(filePath, FileMode.Open))
+            {
+                var fileByteArray = ReadFully(stream);
+                var selectedLanguage = ((ComboBoxItem)ComboLangSelection.SelectedItem).Content.ToString();
+                var speechResult =  await speechServices.SynthesiseSpeech(fileByteArray, selectedLanguage);
+                if (speechResult != null)
+                  txtInputBox.Text = speechResult.DisplayText;
+            }
+        }
+
+        public byte[] ReadFully(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
             }
         }
 

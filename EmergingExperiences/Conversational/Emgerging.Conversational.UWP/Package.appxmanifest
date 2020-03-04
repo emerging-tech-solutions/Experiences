@@ -9,7 +9,7 @@
 
   <Identity
     Name="f261ab2f-b100-41ec-a2c9-e9c34003b67f"
-    Publisher="CN=mmaung"
+    Publisher="CN=lmaung"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="f261ab2f-b100-41ec-a2c9-e9c34003b67f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
