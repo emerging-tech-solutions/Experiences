@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     d:DesignHeight="800" d:DesignWidth="420"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:C4FTK="using:Coding4Fun.Toolkit.Controls"
     Background="#fefefe">
 
     <Grid>
@@ -31,12 +32,61 @@
                     <TextBlock Text="Maung" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight"/>
                 </StackPanel>
             </StackPanel>
-            <TextBlock Text="Thursday, March 05, 2020" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight" HorizontalAlignment="Center"/>
-            <TextBox  x:Name="txtInputBox" Height="200" Margin="20,40,20,0" TextWrapping="Wrap" Background="White" Foreground="Black" BorderThickness="0"/>
+            <TextBlock x:Name="DateField" Text="Thursday, March 05, 2020" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight" HorizontalAlignment="Center"/>
+            
+            <!--<TextBox  x:Name="txtInputBox" Height="200" Margin="20,40,20,0" TextWrapping="Wrap" Background="White" Foreground="Black" BorderThickness="0"/>-->
         </StackPanel>
+        <Grid x:Name="SpeechBubbleFromAi" Visibility="Visible" VerticalAlignment="Bottom" Margin="0,0,0,260">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Height="40" Width="40" RadiusX="24" RadiusY="25" Grid.Column="0" VerticalAlignment="Top" Margin="10,0,10,0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Assets/InterfaceIcons/chatbot_speak.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.10" Grid.Column="2"
+                          OffsetX="16.0" OffsetY="10.0" Color="Black"  HorizontalAlignment="Left">
+                <Border Background="LightBlue"   CornerRadius="3"  Padding="6"
+                    Margin="-1,4,0,0"
+                    VerticalAlignment="Top">
+                    <TextBlock x:Name="txtOutputBox" Text="Text" TextWrapping="WrapWholeWords" Foreground="Black"/>
+                </Border>
+            </controls:DropShadowPanel>
 
-        <StackPanel VerticalAlignment="Bottom" Height="96">
-            <Grid>
+            <Polygon Grid.Column="1" Points="0,0 15,0 15,15" Fill="LightBlue" Margin="0,10,0,0" />
+        </Grid>
+        <StackPanel VerticalAlignment="Bottom" Height="240">
+            <Grid x:Name="SpeechBubbleFromMe" Height="144" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Height="40" Width="40" RadiusX="24" RadiusY="25" Grid.Column="4" VerticalAlignment="Top" Margin="10,0,10,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/Assets/UserIcons/Lwin_Maung_648.jpg"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.10" Grid.Column="2"
+                          OffsetX="16.0" OffsetY="10.0" Color="Black"  HorizontalAlignment="Right">
+                    <Border Background="LightGray"   CornerRadius="3"  Padding="6"
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Top">
+                        <TextBlock x:Name="txtInputBox" Text="Text" TextWrapping="WrapWholeWords" Foreground="Black"/>
+                    </Border>
+                </controls:DropShadowPanel>
+                
+                <Polygon Grid.Column="3" Points="0,0 15,0 0,15" Fill="LightGray" Margin="0,10,0,0" />
+            </Grid>
+            <Grid x:Name="BlankPlaceHolderFromMe" Height="144" Visibility="Visible"/>
+            <Grid Height="96">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="*"/>
@@ -48,15 +98,38 @@
                     <ComboBoxItem Content="en-CA"/>
                     <ComboBoxItem Content="en-IN"/>
                 </ComboBox>
+                <Grid Grid.Column="1" x:Name="MicrophoneIcon" Tapped="MicrophoneIcon_Tapped">
+                    <Path x:Name="MicrophoneGreen" Data="M16.999966,13.3C17.599964,13.3,18.099963,13.8,18.099963,14.4L18.099963,15C18.099963,19.4,14.99997,23,10.899978,23.8L10.799978,23.8 10.799978,29.999999 14.599971,29.999999 14.599971,31.999999 3.3999934,31.999999 3.3999934,29.999999 6.9999857,29.999999 6.9999857,23.9C2.9999943,23,0,19.4,0,15.1L0,14.9 0,14.8C0,14.2 0.49999905,13.7 1.0999975,13.7 1.6999969,13.7 2.1999955,14.2 2.1999955,14.8L2.1999955,15.2C2.1999955,19 5.2999895,22.099999 9.0999818,22.099999 12.899974,22.099999 15.999968,19 15.999968,15.2L15.999968,14.6C15.899968,13.8,16.399967,13.3,16.999966,13.3z M8.899982,0C9.2999814,0,9.6999806,0,9.99998,0.099999428L9.99998,5.5C9.99998,6 10.399979,6.3999996 10.899978,6.3999996 11.399977,6.3999996 11.799976,6 11.799976,5.5L11.799976,0.89999962C13.299973,1.8999996,14.199972,3.5,14.199972,5.3999996L14.199972,14.9C14.199972,17.9 11.799976,20.3 8.7999825,20.3 5.7999885,20.3 3.3999934,17.9 3.3999934,14.9L3.3999934,5.3999996C3.3999934,3.3999996,4.4999909,1.6999998,5.9999881,0.69999981L5.9999881,5.5C5.9999881,6 6.3999872,6.3999996 6.8999863,6.3999996 7.5999849,6.4999998 7.999984,6.0999999 7.9999838,5.5999999L7.9999838,0.099999428C8.2999834,0,8.5999828,0,8.899982,0z" Stretch="Uniform" Fill="DarkGreen" Width="64" Height="64" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5" Visibility="Visible">
+                        <Path.RenderTransform>
+                            <TransformGroup>
+                                <TransformGroup.Children>
+                                    <RotateTransform Angle="0" />
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </TransformGroup.Children>
+                            </TransformGroup>
+                        </Path.RenderTransform>
+                    </Path>
+
+                    <Path x:Name="MicrophoneRed" Data="M16.999966,13.3C17.599964,13.3,18.099963,13.8,18.099963,14.4L18.099963,15C18.099963,19.4,14.99997,23,10.899978,23.8L10.799978,23.8 10.799978,29.999999 14.599971,29.999999 14.599971,31.999999 3.3999934,31.999999 3.3999934,29.999999 6.9999857,29.999999 6.9999857,23.9C2.9999943,23,0,19.4,0,15.1L0,14.9 0,14.8C0,14.2 0.49999905,13.7 1.0999975,13.7 1.6999969,13.7 2.1999955,14.2 2.1999955,14.8L2.1999955,15.2C2.1999955,19 5.2999895,22.099999 9.0999818,22.099999 12.899974,22.099999 15.999968,19 15.999968,15.2L15.999968,14.6C15.899968,13.8,16.399967,13.3,16.999966,13.3z M8.899982,0C9.2999814,0,9.6999806,0,9.99998,0.099999428L9.99998,5.5C9.99998,6 10.399979,6.3999996 10.899978,6.3999996 11.399977,6.3999996 11.799976,6 11.799976,5.5L11.799976,0.89999962C13.299973,1.8999996,14.199972,3.5,14.199972,5.3999996L14.199972,14.9C14.199972,17.9 11.799976,20.3 8.7999825,20.3 5.7999885,20.3 3.3999934,17.9 3.3999934,14.9L3.3999934,5.3999996C3.3999934,3.3999996,4.4999909,1.6999998,5.9999881,0.69999981L5.9999881,5.5C5.9999881,6 6.3999872,6.3999996 6.8999863,6.3999996 7.5999849,6.4999998 7.999984,6.0999999 7.9999838,5.5999999L7.9999838,0.099999428C8.2999834,0,8.5999828,0,8.899982,0z" Stretch="Uniform" Fill="DarkRed" Width="64" Height="64" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
+                        <Path.RenderTransform>
+                            <TransformGroup>
+                                <TransformGroup.Children>
+                                    <RotateTransform Angle="0" />
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </TransformGroup.Children>
+                            </TransformGroup>
+                        </Path.RenderTransform>
+                    </Path>
+                </Grid>
                 <!--<Button x:Name="btnRecord"  Content="Rec" Foreground="Red" FontSize="24" Grid.Column="0" Grid.Row="1" Height="48" Width="120" Click="btnRecord_Click" VerticalAlignment="Top"/>-->
-                <controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.70"
+                <!--<controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.70"
                           OffsetX="5.0" OffsetY="5.0" Color="Black"  HorizontalAlignment="center" VerticalAlignment="Center" Grid.Column="1">
                     <Rectangle Height="80" Width="140" x:Name="MicroPhoneButton" Tapped="MicroPhoneButton_Tapped">
                         <Rectangle.Fill>
                             <ImageBrush x:Name="MicrophoneButtonImage" ImageSource="/Assets/InterfaceIcons/chatbot_listen.png"/>
                         </Rectangle.Fill>
                     </Rectangle>
-                </controls:DropShadowPanel>
+                </controls:DropShadowPanel>-->
             </Grid>
             
             
