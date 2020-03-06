@@ -197,15 +197,13 @@ namespace Emgerging.Conversational.UWP
 
                 Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 var filePath = localFolder.Path + "\\AudioResponse.wav";
-                //Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("AudioResponse.wav", CreationCollisionOption.ReplaceExisting);
 
                 System.IO.File.WriteAllBytes(filePath, b);
 
                 StorageFolder Folder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                //Folder = await Folder.GetFolderAsync("MyFolder");
+
                 StorageFile sf = await Folder.GetFileAsync("AudioResponse.wav");
                 PlayMusic.AudioCategory = Windows.UI.Xaml.Media.AudioCategory.Media;
-
                 PlayMusic.SetSource(await sf.OpenAsync(FileAccessMode.Read), sf.ContentType);
                 PlayMusic.Play();
 
