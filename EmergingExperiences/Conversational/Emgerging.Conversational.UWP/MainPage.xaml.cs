@@ -257,6 +257,7 @@ namespace Emgerging.Conversational.UWP
             {
                 Pbar.Visibility = Visibility.Visible;
                 GetBotIntent(KeyboardTextInbox.Text);
+                KeyboardTextInbox.Text = "";
             }
         }
 
