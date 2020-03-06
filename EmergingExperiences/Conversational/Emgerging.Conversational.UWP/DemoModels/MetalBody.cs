@@ -22,7 +22,7 @@ namespace Emerging.Conversational.UWP
         {
             data = new List<Datum>();
             data.Add(new Datum {
-                BodyPlainText = "Hi Mike, I schedule 10s need 304 t6 ss sht cf pi 1 14\\'\\' x 48x96 po qt. ",
+                BodyPlainText = " ",
                 BodyHTML = "<HTML></HTML>",
                 SenderName ="test@test.com",
                 ConversationId = "22342344444",
