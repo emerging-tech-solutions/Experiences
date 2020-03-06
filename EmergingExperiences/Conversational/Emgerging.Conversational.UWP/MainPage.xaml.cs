@@ -244,7 +244,6 @@ namespace Emgerging.Conversational.UWP
                 isCapturingAudio = true;
                 MicrophoneGreen.Visibility = Visibility.Collapsed;
                 MicrophoneRed.Visibility = Visibility.Visible;
-                //MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_speak.png"));
                 SpeechBubbleFromMe.Visibility = Visibility.Collapsed;
                 SpeechBubbleFromAi.Visibility = Visibility.Collapsed;
                 BlankPlaceHolderFromMe.Visibility = Visibility.Visible;
@@ -258,7 +257,6 @@ namespace Emgerging.Conversational.UWP
                 SendAudioForTranslation(audioFile.Path);
                 MicrophoneGreen.Visibility = Visibility.Visible;
                 MicrophoneRed.Visibility = Visibility.Collapsed;
-                //MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_listen.png"));
                 isCapturingAudio = false;
             }
         }
