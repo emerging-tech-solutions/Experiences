@@ -1,19 +1,32 @@
 ﻿
 using Emerging.Conversational.UWP;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SharedServices;
 using SharedServices.Models;
 using SharedServices.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.Media.Capture;
+using Windows.Media.Core;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -157,7 +170,9 @@ namespace Emgerging.Conversational.UWP
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    txtOutputBox.Text = responseString;
+                    JToken parsedJson = JToken.Parse(responseString);
+                    var beautified = parsedJson.ToString(Formatting.Indented);
+                    txtOutputBox.Text = beautified;
                     txtInputBox.Text = message;
                     BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
                     SpeechBubbleFromMe.Visibility = Visibility.Visible;
