@@ -87,12 +87,12 @@ namespace Emgerging.Conversational.UWP
                     if (txtInputBox.Text.Length <= 50)
                         GetBotIntent(txtInputBox.Text);
                     else
-                        RyersonMetalDetector(txtInputBox.Text);
+                        MetalDetectorDemo(txtInputBox.Text);
                 }
             }
         }
 
-        private void RyersonMetalDetector(string message)
+        private void MetalDetectorDemo(string message)
         {
             //HttpClient client = new HttpClient();
             //var postURI = $"https://emergingtech-api.azurewebsites.net/api/Conversational?message={message}";
