@@ -22,14 +22,14 @@
                           OffsetX="2.0" OffsetY="2.0" Color="Black" Margin="20,20,20,20" HorizontalAlignment="Right">
                 <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="25">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="/Assets/UserIcons/Lwin_Maung_648.jpg"/>
+                        <ImageBrush ImageSource="/Assets/UserIcons/Jeff_Griffin_648.jpg"/>
                     </Rectangle.Fill>
                 </Rectangle>
             </controls:DropShadowPanel>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Lwin" Foreground="Black" FontSize="24" FontWeight="ExtraBlack"/>
-                    <TextBlock Text="Maung" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight"/>
+                    <TextBlock Text="Jeff" Foreground="Black" FontSize="24" FontWeight="ExtraBlack"/>
+                    <TextBlock Text="Griffin" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight"/>
                 </StackPanel>
             </StackPanel>
             <TextBlock x:Name="DateField" Text="Thursday, March 05, 2020" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight" HorizontalAlignment="Center"/>
@@ -71,7 +71,7 @@
                 </Grid.ColumnDefinitions>
                 <Rectangle Height="40" Width="40" RadiusX="24" RadiusY="25" Grid.Column="4" VerticalAlignment="Top" Margin="10,0,10,0">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="/Assets/UserIcons/Lwin_Maung_648.jpg"/>
+                        <ImageBrush ImageSource="/Assets/UserIcons/Jeff_Griffin_648.jpg"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.10" Grid.Column="2"
@@ -85,20 +85,51 @@
                 
                 <Polygon Grid.Column="3" Points="0,0 15,0 0,15" Fill="LightGray" Margin="0,10,0,0" />
             </Grid>
+            <ProgressBar x:Name="Pbar" Width="200" Height="2" IsIndeterminate="True" Foreground="DarkGray" Visibility="Collapsed"/>
             <Grid x:Name="BlankPlaceHolderFromMe" Height="144" Visibility="Visible"/>
             <Grid Height="96">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="ComboLangSelection" SelectedIndex="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
-                    <ComboBoxItem Content="en-US"/>
-                    <ComboBoxItem Content="en-GB"/>
-                    <ComboBoxItem Content="en-CA"/>
-                    <ComboBoxItem Content="en-IN"/>
-                </ComboBox>
-                <Grid Grid.Column="1" x:Name="MicrophoneIcon" Tapped="MicrophoneIcon_Tapped">
+                <StackPanel>
+                    <Grid Grid.Column="0" x:Name="EnableKeyboardIcon" Visibility="Collapsed" Tapped="EnableKeyboardIcon_Tapped">
+                        <Path Data="M6,11L26,11 26,13 6,13z M25,7L27,7 27,9 25,9z M21,7L23,7 23,9 21,9z M17,7L19,7 19,9 17,9z M13,7L15,7 15,9 13,9z M9,7L11,7 11,9 9,9z M5,7L7,7 7,9 5,9z M27,3L29,3 29,5 27,5z M23,3L25,3 25,5 23,5z M19,3L21,3 21,5 19,5z M15,3L17,3 17,5 15,5z M11,3L13,3 13,5 11,5z M7,3L9,3 9,5 7,5z M3,3L5,3 5,5 3,5z M1,1L1,15 31,15 31,1z M0.5,0L31.5,0C31.775999,0,32,0.22399998,32,0.5L32,15.5C32,15.776,31.775999,16,31.5,16L0.5,16C0.22399998,16,0,15.776,0,15.5L0,0.5C0,0.22399998,0.22399998,0,0.5,0z" Stretch="Uniform" Fill="#989898" Width="48" Height="48" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <TransformGroup.Children>
+                                        <RotateTransform Angle="0" />
+                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    </TransformGroup.Children>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                    <Grid Grid.Column="0" x:Name="EnableMicrophoneIcon" Visibility="Visible" Tapped="EnableMicrophoneIcon_Tapped">
+                        <Path Data="M0,15.1L2.7000022,15.1 2.7000022,16C2.7000022,20.400001 6.2000053,23.900001 10.600009,23.900001 15.000013,23.900001 18.500016,20.400001 18.500016,16L18.500016,15.2 21.200018,15.2 21.200018,16C21.200018,21.400001,17.100015,25.900001,11.80001,26.500001L11.80001,30.500001 13.600012,30.500001 13.600012,32.000001 7.7000069,32.000001 7.7000069,30.500001 9.2000079,30.500001 9.2000079,26.400001C4.0000033,25.8,0,21.400001,0,16z M10.600009,0C13.000011,0,14.900013,1.9000001,14.900013,4.3000004L14.900013,16.6C14.900013,19 13.000011,20.900001 10.600009,20.900001 8.2000071,20.900001 6.3000054,19 6.3000052,16.6L6.3000052,4.3000004C6.3000054,1.9000001,8.2000071,0,10.600009,0z" Stretch="Uniform" Fill="#989898" Width="32" Height="32" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <TransformGroup.Children>
+                                        <RotateTransform Angle="0" />
+                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    </TransformGroup.Children>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                    <ComboBox x:Name="ComboLangSelection" SelectedIndex="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" FontSize="12">
+                        <ComboBoxItem Content="en-US"/>
+                        <ComboBoxItem Content="en-GB"/>
+                        <ComboBoxItem Content="en-CA"/>
+                        <ComboBoxItem Content="en-IN"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <Grid Grid.Column="1" x:Name="KeyboardInputBox" Visibility="Visible">
+                    <TextBox x:Name="KeyboardTextInbox" Background="LightGray" BorderBrush="Transparent" Foreground="Black" KeyDown="KeyboardTextInbox_KeyDown"/>
+                </Grid>
+
+                <Grid Grid.Column="1" x:Name="MicrophoneIcon" Tapped="MicrophoneIcon_Tapped" Visibility="Visible">
                     <Path x:Name="MicrophoneGreen" Data="M16.999966,13.3C17.599964,13.3,18.099963,13.8,18.099963,14.4L18.099963,15C18.099963,19.4,14.99997,23,10.899978,23.8L10.799978,23.8 10.799978,29.999999 14.599971,29.999999 14.599971,31.999999 3.3999934,31.999999 3.3999934,29.999999 6.9999857,29.999999 6.9999857,23.9C2.9999943,23,0,19.4,0,15.1L0,14.9 0,14.8C0,14.2 0.49999905,13.7 1.0999975,13.7 1.6999969,13.7 2.1999955,14.2 2.1999955,14.8L2.1999955,15.2C2.1999955,19 5.2999895,22.099999 9.0999818,22.099999 12.899974,22.099999 15.999968,19 15.999968,15.2L15.999968,14.6C15.899968,13.8,16.399967,13.3,16.999966,13.3z M8.899982,0C9.2999814,0,9.6999806,0,9.99998,0.099999428L9.99998,5.5C9.99998,6 10.399979,6.3999996 10.899978,6.3999996 11.399977,6.3999996 11.799976,6 11.799976,5.5L11.799976,0.89999962C13.299973,1.8999996,14.199972,3.5,14.199972,5.3999996L14.199972,14.9C14.199972,17.9 11.799976,20.3 8.7999825,20.3 5.7999885,20.3 3.3999934,17.9 3.3999934,14.9L3.3999934,5.3999996C3.3999934,3.3999996,4.4999909,1.6999998,5.9999881,0.69999981L5.9999881,5.5C5.9999881,6 6.3999872,6.3999996 6.8999863,6.3999996 7.5999849,6.4999998 7.999984,6.0999999 7.9999838,5.5999999L7.9999838,0.099999428C8.2999834,0,8.5999828,0,8.899982,0z" Stretch="Uniform" Fill="DarkGreen" Width="64" Height="64" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5" Visibility="Visible">
                         <Path.RenderTransform>
                             <TransformGroup>

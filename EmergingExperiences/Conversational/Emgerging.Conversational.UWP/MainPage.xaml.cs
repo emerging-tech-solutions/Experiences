@@ -33,12 +33,15 @@ namespace Emgerging.Conversational.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        DispatcherTimer Timer = new DispatcherTimer();
         MediaCapture mediaCapture;
+        bool isAudioCapture = true;
         bool isCapturingAudio = false;
         bool capturingStoppedForAudioState = false;
         LowLagMediaRecording _mediaRecording;
         SpeechServices speechServices;
         StorageFile audioFile;
+        DateTime lastInteraction;
 
         public MainPage()
         {
@@ -46,12 +49,58 @@ namespace Emgerging.Conversational.UWP
             InitializeMediaElements();
             speechServices = new SpeechServices();
             speechServices.Authenticate();
+            InitializeScreen();
+        }
+
+
+        public void InitializeScreen()
+        {
+            Timer.Tick += Timer_Tick;
+            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Start();
+
             SpeechBubbleFromMe.Visibility = Visibility.Collapsed;
             SpeechBubbleFromAi.Visibility = Visibility.Collapsed;
             BlankPlaceHolderFromMe.Visibility = Visibility.Visible;
             DateTime time = DateTime.Now;             // Use current time.
             string format = "dddd, MMMM d, yyyy";   // Use this format.
             DateField.Text = time.ToString(format);
+            isVoiceEntry();
+            Pbar.Visibility = Visibility.Collapsed;
+            lastInteraction = DateTime.Now;
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            //Clean up screen after 15 seconds
+            TimeSpan delay = DateTime.Now- lastInteraction;
+
+            if (delay > TimeSpan.FromSeconds(15))
+            {
+                BlankPlaceHolderFromMe.Visibility = Visibility.Visible;
+                SpeechBubbleFromMe.Visibility = Visibility.Collapsed;
+                SpeechBubbleFromAi.Visibility = Visibility.Collapsed;
+                Pbar.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        public void isKeyEntry()
+        {
+            isAudioCapture = false;
+            KeyboardTextInbox.Text = "";
+            EnableKeyboardIcon.Visibility = Visibility.Collapsed;
+            EnableMicrophoneIcon.Visibility = Visibility.Visible;
+            KeyboardInputBox.Visibility = Visibility.Visible;
+            MicrophoneIcon.Visibility = Visibility.Collapsed;
+        }
+
+        public void isVoiceEntry()
+        {
+            isAudioCapture = true;
+            MicrophoneIcon.Visibility = Visibility.Visible;
+            EnableKeyboardIcon.Visibility = Visibility.Visible;
+            EnableMicrophoneIcon.Visibility = Visibility.Collapsed;
+            KeyboardInputBox.Visibility = Visibility.Collapsed;
         }
 
        
@@ -79,12 +128,17 @@ namespace Emgerging.Conversational.UWP
                 {
                     if (speechResult.DisplayText == null)
                         return;
-                    txtInputBox.Text = speechResult.DisplayText;
-                    BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
-                    SpeechBubbleFromMe.Visibility = Visibility.Visible;
-                    SpeechBubbleFromAi.Visibility = Visibility.Visible;
+                    
+                    if (isAudioCapture)
+                    {
+                        GetBotIntent(speechResult.DisplayText);
+                    }
+                    else
+                    {
+                        GetBotIntent(txtInputBox.Text);
+                    }
                     //txtOutputBox.Text = "That's a good one. Try this: How much wood would a woodchuck chuck if a woodchuck could chuck wood? A woodchuck would chuck as much wood as a woodchuck could chuck if a woodchuck could chuck wood";
-                    GetBotIntent(txtInputBox.Text);
+                    
                 }
             }
         }
@@ -111,6 +165,12 @@ namespace Emgerging.Conversational.UWP
                 Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("AudioResponse.mp3"
                     , CreationCollisionOption.ReplaceExisting);
 
+                txtInputBox.Text = message;
+                BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
+                SpeechBubbleFromMe.Visibility = Visibility.Visible;
+                SpeechBubbleFromAi.Visibility = Visibility.Visible;
+                Pbar.Visibility = Visibility.Collapsed;
+                lastInteraction = DateTime.Now;
             }
         }
         public byte[] ReadFully(Stream input)
@@ -143,6 +203,10 @@ namespace Emgerging.Conversational.UWP
                 MicrophoneGreen.Visibility = Visibility.Collapsed;
                 MicrophoneRed.Visibility = Visibility.Visible;
                 //MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_speak.png"));
+                SpeechBubbleFromMe.Visibility = Visibility.Collapsed;
+                SpeechBubbleFromAi.Visibility = Visibility.Collapsed;
+                BlankPlaceHolderFromMe.Visibility = Visibility.Visible;
+                Pbar.Visibility = Visibility.Visible;
                 await _mediaRecording.StartAsync();
             }
             else
@@ -155,6 +219,25 @@ namespace Emgerging.Conversational.UWP
                 //MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_listen.png"));
                 isCapturingAudio = false;
             }
+        }
+
+        private void KeyboardTextInbox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                Pbar.Visibility = Visibility.Visible;
+                GetBotIntent(KeyboardTextInbox.Text);
+            }
+        }
+
+        private void EnableKeyboardIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            isKeyEntry();
+        }
+
+        private void EnableMicrophoneIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            isVoiceEntry();
         }
     }
 }
