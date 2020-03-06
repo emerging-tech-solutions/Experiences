@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Emerging.WebAPI.Models.DemoModels;
+using Newtonsoft.Json;
 using SharedServices;
 using SharedServices.Models;
 using SharedServices.Services;
@@ -131,7 +132,7 @@ namespace Emgerging.Conversational.UWP
                     
                     if (isAudioCapture)
                     {
-                        if (speechResult.DisplayText.Length <= 50)
+                        if (speechResult.DisplayText.Length <= 30)
                             GetBotIntent(txtInputBox.Text);
                         else
                             MetalDetectorDemo(txtInputBox.Text);
@@ -140,7 +141,7 @@ namespace Emgerging.Conversational.UWP
                     }
                     else
                     {
-                        if (txtInputBox.Text.Length <= 50)
+                        if (txtInputBox.Text.Length <= 30)
                             GetBotIntent(txtInputBox.Text);
                         else
                             MetalDetectorDemo(txtInputBox.Text);
@@ -149,29 +150,30 @@ namespace Emgerging.Conversational.UWP
             }
         }
 
-        private void MetalDetectorDemo(string message)
+        private async void MetalDetectorDemo(string message)
         {
-            //HttpClient client = new HttpClient();
-            //var postURI = $"https://emergingtech-api.azurewebsites.net/api/Conversational?message={message}";
-            //HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, postURI);
-            //httpRequest.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+            var postURI = "http://52.173.143.47/api/v1/service/extractor-service/score";
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer l0nfvZBDyuq5OdZOkwmtaki5xoIRnSpC");
+                var content = new MetalBody(message);
+                var json = JsonConvert.SerializeObject(content);
 
-            //var response = await client.PostAsync(postURI, httpRequest.Content);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var responseString = await response.Content.ReadAsStringAsync();
-            //    var botResponse = JsonConvert.DeserializeObject<BotResponse>(responseString);
-            //    txtOutputBox.Text = botResponse.TextResponse;
-
-            //    var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            //    Byte[] b = Convert.FromBase64String(botResponse.Base64Audio);
-
-            //    Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            //    var filePath = localFolder.Path + "\\AudioResponse.mp3";
-            //    Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("AudioResponse.mp3"
-            //        , CreationCollisionOption.ReplaceExisting);
-
-            //}
+                HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, postURI);
+                httpRequest.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(postURI, httpRequest.Content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    txtOutputBox.Text = responseString;
+                    txtInputBox.Text = message;
+                    BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
+                    SpeechBubbleFromMe.Visibility = Visibility.Visible;
+                    SpeechBubbleFromAi.Visibility = Visibility.Visible;
+                    Pbar.Visibility = Visibility.Collapsed;
+                    lastInteraction = DateTime.Now;
+                }
+            }
         }
         private async void GetBotIntent(string message)
         {
@@ -256,7 +258,11 @@ namespace Emgerging.Conversational.UWP
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 Pbar.Visibility = Visibility.Visible;
-                GetBotIntent(KeyboardTextInbox.Text);
+
+                if (KeyboardTextInbox.Text.Length <= 30)
+                    GetBotIntent(KeyboardTextInbox.Text);
+                else
+                    MetalDetectorDemo(KeyboardTextInbox.Text);
                 KeyboardTextInbox.Text = "";
             }
         }
