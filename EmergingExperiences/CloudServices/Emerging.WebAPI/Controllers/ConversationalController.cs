@@ -4,6 +4,7 @@ using Emerging.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SharedServices.Models;
 using System;
 using System.Threading.Tasks;
 

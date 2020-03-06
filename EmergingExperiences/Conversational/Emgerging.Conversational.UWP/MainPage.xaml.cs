@@ -1,10 +1,14 @@
-﻿using SharedServices;
+﻿using Newtonsoft.Json;
+using SharedServices;
+using SharedServices.Models;
 using SharedServices.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -73,16 +77,42 @@ namespace Emgerging.Conversational.UWP
                 var speechResult =  await speechServices.SynthesiseSpeech(fileByteArray, selectedLanguage);
                 if (speechResult != null)
                 {
+                    if (speechResult.DisplayText == null)
+                        return;
                     txtInputBox.Text = speechResult.DisplayText;
                     BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
                     SpeechBubbleFromMe.Visibility = Visibility.Visible;
                     SpeechBubbleFromAi.Visibility = Visibility.Visible;
-                    txtOutputBox.Text = "That's a good one. Try this: How much wood would a woodchuck chuck if a woodchuck could chuck wood? A woodchuck would chuck as much wood as a woodchuck could chuck if a woodchuck could chuck wood";
-
+                    //txtOutputBox.Text = "That's a good one. Try this: How much wood would a woodchuck chuck if a woodchuck could chuck wood? A woodchuck would chuck as much wood as a woodchuck could chuck if a woodchuck could chuck wood";
+                    GetBotIntent(txtInputBox.Text);
                 }
             }
         }
 
+        private async void GetBotIntent(string message)
+        {
+            HttpClient client = new HttpClient();
+            var postURI = $"https://emergingtech-api.azurewebsites.net/api/Conversational?message={message}";
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, postURI);
+            httpRequest.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(postURI, httpRequest.Content);
+            if(response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var botResponse = JsonConvert.DeserializeObject<BotResponse>(responseString);
+                txtOutputBox.Text = botResponse.TextResponse;
+
+                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                Byte[] b = Convert.FromBase64String(botResponse.Base64Audio);
+
+                Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var filePath = localFolder.Path + "\\AudioResponse.mp3";
+                Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("AudioResponse.mp3"
+                    , CreationCollisionOption.ReplaceExisting);
+
+            }
+        }
         public byte[] ReadFully(Stream input)
         {
             using (MemoryStream ms = new MemoryStream())
