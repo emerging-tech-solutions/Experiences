@@ -44,13 +44,13 @@
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Height="40" Width="40" RadiusX="24" RadiusY="25" Grid.Column="0" VerticalAlignment="Top" Margin="10,0,10,0">
+            <Rectangle Height="40" Width="40" RadiusX="24" RadiusY="25" Grid.Column="0" VerticalAlignment="Top" Margin="10,0,10,0" Stroke="DarkGray" StrokeThickness="1">
                 <Rectangle.Fill>
-                    <ImageBrush ImageSource="/Assets/InterfaceIcons/chatbot_speak.png" Stretch="Uniform"/>
+                    <ImageBrush ImageSource="/Assets/interfaceicons/chatbot_speak.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
             </Rectangle>
             <controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.10" Grid.Column="2"
-                          OffsetX="16.0" OffsetY="10.0" Color="Black"  HorizontalAlignment="Left">
+                          OffsetX="8.0" OffsetY="10.0" Color="Black"  HorizontalAlignment="Left">
                 <Border Background="LightBlue"   CornerRadius="3"  Padding="6"
                     Margin="-1,4,0,0"
                     VerticalAlignment="Top">
