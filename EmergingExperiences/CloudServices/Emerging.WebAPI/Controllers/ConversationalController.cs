@@ -43,10 +43,11 @@ namespace Emerging.WebAPI.Controllers
         }
         private BotResponse ProcessIntentToResponse(string botResponse)
         {
-            var result = new BotResponse { TextResponse = "Can you repeat your request?" };
+            var result = new BotResponse { TextResponse = "Can you repeat your request?", Confidence = "0.00" };
             try
             {
                 var intentwithScore = JsonConvert.DeserializeObject<IntentWithScore>(botResponse);
+                result.Confidence = intentwithScore.Score;
                 switch(intentwithScore.Result.ToLower().Replace("_"," "))
                 {
                     case "ryerson - order":

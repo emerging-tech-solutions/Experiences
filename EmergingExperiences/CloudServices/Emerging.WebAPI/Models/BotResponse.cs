@@ -8,6 +8,7 @@ namespace Emerging.WebAPI.Models
     public class BotResponse
     { 
         public string TextResponse { get; set; }
+        public string Confidence { get; set; }
         public string Base64Audio { get; set; }
     }
 }
