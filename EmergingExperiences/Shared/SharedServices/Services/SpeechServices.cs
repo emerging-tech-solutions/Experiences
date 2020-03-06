@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SharedServices.Helpers;
 using SharedServices.Models;
 using System;
 using System.Collections.Generic;
@@ -22,20 +23,7 @@ namespace SharedServices.Services
         {
             APIEndPoint = $"https://{Region}.stt.speech.microsoft.com";
             APITokenEndPoint = $"https://{Region}.api.cognitive.microsoft.com";
-            this.token = await FetchTokenAsync("/sts/v1.0/issuetoken");
-        }
-
-        private async Task<string> FetchTokenAsync(string fetchUri)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKey);
-                UriBuilder uriBuilder = new UriBuilder(APITokenEndPoint + fetchUri);
-
-                var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null);
-                Console.WriteLine("Token Uri: {0}", uriBuilder.Uri.AbsoluteUri);
-                return await result.Content.ReadAsStringAsync();
-            }
+            this.token = await CognitiveServicesHelper.FetchTokenAsync(APITokenEndPoint + "/sts/v1.0/issuetoken", APIKey);
         }
         public async Task<SpeechSynthesisResult> SynthesiseSpeech(byte[] array, string lang ="en-US")
         {

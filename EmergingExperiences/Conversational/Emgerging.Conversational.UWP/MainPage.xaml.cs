@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -102,6 +103,31 @@ namespace Emgerging.Conversational.UWP
         private void MediaCapture_RecordLimitationExceeded(MediaCapture sender)
         {
             throw new NotImplementedException();
+        }
+
+        private async void MicroPhoneButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (!isCapturingAudio)
+            {
+                await InitializeMediaElements();
+                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
+
+                audioFile = await localFolder.CreateFileAsync("audioPayload.wav", CreationCollisionOption.ReplaceExisting);
+                _mediaRecording = await mediaCapture.PrepareLowLagRecordToStorageFileAsync(
+                        MediaEncodingProfile.CreateWav(AudioEncodingQuality.Low), audioFile);
+                isCapturingAudio = true;
+                MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_speak.png"));
+                await _mediaRecording.StartAsync();
+            }
+            else
+            {
+                await _mediaRecording.StopAsync();
+                await _mediaRecording.FinishAsync();
+                SendAudioForTranslation(audioFile.Path);
+                MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_listen.png"));
+                isCapturingAudio = false;
+            }
         }
     }
 }

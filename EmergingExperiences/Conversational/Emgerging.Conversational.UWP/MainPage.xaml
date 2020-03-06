@@ -6,10 +6,68 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="White">
+    d:DesignHeight="800" d:DesignWidth="420"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    Background="#fefefe">
 
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>-->
+        <StackPanel>
+            <controls:DropShadowPanel BlurRadius="4.0" ShadowOpacity="0.70"
+                          OffsetX="2.0" OffsetY="2.0" Color="Black" Margin="20,20,20,20" HorizontalAlignment="Right">
+                <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="25">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/Assets/UserIcons/Lwin_Maung_648.jpg"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </controls:DropShadowPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Lwin" Foreground="Black" FontSize="24" FontWeight="ExtraBlack"/>
+                    <TextBlock Text="Maung" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="Thursday, March 05, 2020" Margin="4,0,0,0" Foreground="Black" FontSize="24" FontWeight="ExtraLight" HorizontalAlignment="Center"/>
+            <TextBox  x:Name="txtInputBox" Height="200" Margin="20,40,20,0" TextWrapping="Wrap" Background="White" Foreground="Black" BorderThickness="0"/>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom" Height="96">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="ComboLangSelection" SelectedIndex="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
+                    <ComboBoxItem Content="en-US"/>
+                    <ComboBoxItem Content="en-GB"/>
+                    <ComboBoxItem Content="en-CA"/>
+                    <ComboBoxItem Content="en-IN"/>
+                </ComboBox>
+                <!--<Button x:Name="btnRecord"  Content="Rec" Foreground="Red" FontSize="24" Grid.Column="0" Grid.Row="1" Height="48" Width="120" Click="btnRecord_Click" VerticalAlignment="Top"/>-->
+                <controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.70"
+                          OffsetX="5.0" OffsetY="5.0" Color="Black"  HorizontalAlignment="center" VerticalAlignment="Center" Grid.Column="1">
+                    <Rectangle Height="80" Width="140" x:Name="MicroPhoneButton" Tapped="MicroPhoneButton_Tapped">
+                        <Rectangle.Fill>
+                            <ImageBrush x:Name="MicrophoneButtonImage" ImageSource="/Assets/InterfaceIcons/chatbot_listen.png"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </controls:DropShadowPanel>
+            </Grid>
+            
+            
+            
+        </StackPanel>
+
+        <!--<Grid Grid.Row="0" Background="#4c4c4c">
+                
+                
+        </Grid>-->
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="240"/>
@@ -17,15 +75,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="120"/>
-        </Grid.RowDefinitions>
-        <ComboBox x:Name="ComboLangSelection" SelectedIndex="0">
-            <ComboBoxItem Content="en-US"/>
-            <ComboBoxItem Content="en-GB"/>
-            <ComboBoxItem Content="en-CA"/>
-            <ComboBoxItem Content="en-IN"/>
-        </ComboBox>
-        <Button x:Name="btnRecord"  Content="Rec" Foreground="Red" FontSize="24" Grid.Column="0" Grid.Row="1" Height="100" Width="100" Margin="10" Click="btnRecord_Click"/>
-        <Button x:Name="btnSend" Content="Send" Foreground="Red" FontSize="24" Grid.Column="2" Grid.Row="1" Height="100" Width="210" Margin="10"/>
-        <TextBox  x:Name="txtInputBox" Height="100" Grid.Column="1" Grid.Row="1"/>
+        </Grid.RowDefinitions>-->
+        <!--
+        
+        <Button x:Name="btnSend" Content="Send" Foreground="Red" FontSize="24" Grid.Row="1" Height="100" Width="210" Margin="10,269,0,0" VerticalAlignment="Top"/>
+        -->
     </Grid>
 </Page>
