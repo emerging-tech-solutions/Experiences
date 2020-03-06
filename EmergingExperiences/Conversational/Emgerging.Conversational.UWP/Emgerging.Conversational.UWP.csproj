@@ -134,6 +134,7 @@
   <ItemGroup>
     <Content Include="Assets\InterfaceIcons\chatbot_listen.png" />
     <Content Include="Assets\InterfaceIcons\chatbot_speak.png" />
+    <Content Include="Assets\UserIcons\chatbot_square.png" />
     <Content Include="Assets\UserIcons\Chet_Hartin_648.jpg" />
     <Content Include="Assets\UserIcons\Dave_Van_Drunen.jpg" />
     <Content Include="Assets\UserIcons\Jeff_Griffin_648.jpg" />
