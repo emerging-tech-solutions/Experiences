@@ -152,6 +152,8 @@
                         </Path.RenderTransform>
                     </Path>
                 </Grid>
+                <MediaPlayerElement x:Name="_mediaPlayerElement" AreTransportControlsEnabled="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+
                 <!--<Button x:Name="btnRecord"  Content="Rec" Foreground="Red" FontSize="24" Grid.Column="0" Grid.Row="1" Height="48" Width="120" Click="btnRecord_Click" VerticalAlignment="Top"/>-->
                 <!--<controls:DropShadowPanel BlurRadius="10.0" ShadowOpacity="0.70"
                           OffsetX="5.0" OffsetY="5.0" Color="Black"  HorizontalAlignment="center" VerticalAlignment="Center" Grid.Column="1">

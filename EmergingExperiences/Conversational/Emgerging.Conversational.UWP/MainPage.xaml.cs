@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Capture;
+using Windows.Media.Core;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -44,6 +45,7 @@ namespace Emgerging.Conversational.UWP
         StorageFile audioFile;
         DateTime lastInteraction;
 
+        MediaElement PlayMusic;
         public MainPage()
         {
             this.InitializeComponent();
@@ -108,6 +110,7 @@ namespace Emgerging.Conversational.UWP
 
         private async Task InitializeMediaElements()
         {
+            PlayMusic = new MediaElement();
             mediaCapture = new MediaCapture();
             await mediaCapture.InitializeAsync();
             mediaCapture.Failed += MediaCapture_Failed;
@@ -194,8 +197,16 @@ namespace Emgerging.Conversational.UWP
 
                 Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 var filePath = localFolder.Path + "\\AudioResponse.mp3";
-                Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("AudioResponse.mp3"
-                    , CreationCollisionOption.ReplaceExisting);
+                Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("AudioResponse.mp3", CreationCollisionOption.ReplaceExisting);
+
+
+                StorageFolder Folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                //Folder = await Folder.GetFolderAsync("MyFolder");
+                StorageFile sf = await Folder.GetFileAsync("AudioResponse.mp3");
+                PlayMusic.AudioCategory = Windows.UI.Xaml.Media.AudioCategory.Media;
+
+                PlayMusic.SetSource(await sf.OpenAsync(FileAccessMode.Read), sf.ContentType);
+                PlayMusic.Play();
 
                 txtInputBox.Text = message;
                 BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
