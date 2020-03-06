@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -41,7 +42,15 @@ namespace Emgerging.Conversational.UWP
             InitializeMediaElements();
             speechServices = new SpeechServices();
             speechServices.Authenticate();
+            SpeechBubbleFromMe.Visibility = Visibility.Collapsed;
+            SpeechBubbleFromAi.Visibility = Visibility.Collapsed;
+            BlankPlaceHolderFromMe.Visibility = Visibility.Visible;
+            DateTime time = DateTime.Now;             // Use current time.
+            string format = "dddd, MMMM d, yyyy";   // Use this format.
+            DateField.Text = time.ToString(format);
         }
+
+       
 
         private async Task InitializeMediaElements()
         {
@@ -55,29 +64,6 @@ namespace Emgerging.Conversational.UWP
             throw new NotImplementedException();
         }
 
-        private async void btnRecord_Click(object sender, RoutedEventArgs e)
-        {
-            if (!isCapturingAudio)
-            {
-                await InitializeMediaElements();
-                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
-
-                audioFile = await localFolder.CreateFileAsync("audioPayload.wav", CreationCollisionOption.ReplaceExisting);
-                _mediaRecording = await mediaCapture.PrepareLowLagRecordToStorageFileAsync(
-                        MediaEncodingProfile.CreateWav(AudioEncodingQuality.Low), audioFile);
-                isCapturingAudio = true;
-                await _mediaRecording.StartAsync();
-            }
-            else
-            {
-                await _mediaRecording.StopAsync();
-                await _mediaRecording.FinishAsync();
-                SendAudioForTranslation(audioFile.Path);
-                isCapturingAudio = false;
-            }
-        }
-
         private async void SendAudioForTranslation(string filePath)
         {
             using (FileStream stream = new FileStream(filePath, FileMode.Open))
@@ -86,7 +72,14 @@ namespace Emgerging.Conversational.UWP
                 var selectedLanguage = ((ComboBoxItem)ComboLangSelection.SelectedItem).Content.ToString();
                 var speechResult =  await speechServices.SynthesiseSpeech(fileByteArray, selectedLanguage);
                 if (speechResult != null)
-                  txtInputBox.Text = speechResult.DisplayText;
+                {
+                    txtInputBox.Text = speechResult.DisplayText;
+                    BlankPlaceHolderFromMe.Visibility = Visibility.Collapsed;
+                    SpeechBubbleFromMe.Visibility = Visibility.Visible;
+                    SpeechBubbleFromAi.Visibility = Visibility.Visible;
+                    txtOutputBox.Text = "That's a good one. Try this: How much wood would a woodchuck chuck if a woodchuck could chuck wood? A woodchuck would chuck as much wood as a woodchuck could chuck if a woodchuck could chuck wood";
+
+                }
             }
         }
 
@@ -102,6 +95,36 @@ namespace Emgerging.Conversational.UWP
         private void MediaCapture_RecordLimitationExceeded(MediaCapture sender)
         {
             throw new NotImplementedException();
+        }
+
+
+        private async void MicrophoneIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (!isCapturingAudio)
+            {
+                await InitializeMediaElements();
+                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
+
+                audioFile = await localFolder.CreateFileAsync("audioPayload.wav", CreationCollisionOption.ReplaceExisting);
+                _mediaRecording = await mediaCapture.PrepareLowLagRecordToStorageFileAsync(
+                        MediaEncodingProfile.CreateWav(AudioEncodingQuality.Low), audioFile);
+                isCapturingAudio = true;
+                MicrophoneGreen.Visibility = Visibility.Collapsed;
+                MicrophoneRed.Visibility = Visibility.Visible;
+                //MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_speak.png"));
+                await _mediaRecording.StartAsync();
+            }
+            else
+            {
+                await _mediaRecording.StopAsync();
+                await _mediaRecording.FinishAsync();
+                SendAudioForTranslation(audioFile.Path);
+                MicrophoneGreen.Visibility = Visibility.Visible;
+                MicrophoneRed.Visibility = Visibility.Collapsed;
+                //MicrophoneButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/InterfaceIcons/chatbot_listen.png"));
+                isCapturingAudio = false;
+            }
         }
     }
 }

@@ -9,9 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visual", "Visual", "{88BC3A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emgerging.Conversational.UWP", "Conversational\Emgerging.Conversational.UWP\Emgerging.Conversational.UWP.csproj", "{4D4FFBF5-AF77-454B-A4E5-8D7875622B00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedServices", "Shared\SharedServices\SharedServices.csproj", "{3B45AA30-CFDC-46C6-BECC-89163D0154E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedServices", "Shared\SharedServices\SharedServices.csproj", "{3B45AA30-CFDC-46C6-BECC-89163D0154E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{25F19F0F-9DA2-42EF-BFA7-0477857DD19D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudServices", "CloudServices", "{02DCF2E4-57DB-4CB2-A75D-241EACED4C4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emerging.WebAPI", "CloudServices\Emerging.WebAPI\Emerging.WebAPI.csproj", "{D011E13A-E882-4F02-BA96-5D65CE142A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,26 @@ Global
 		{3B45AA30-CFDC-46C6-BECC-89163D0154E0}.Release|x64.Build.0 = Release|Any CPU
 		{3B45AA30-CFDC-46C6-BECC-89163D0154E0}.Release|x86.ActiveCfg = Release|Any CPU
 		{3B45AA30-CFDC-46C6-BECC-89163D0154E0}.Release|x86.Build.0 = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|ARM.Build.0 = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|x64.Build.0 = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Debug|x86.Build.0 = Debug|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|ARM.Build.0 = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|ARM64.Build.0 = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|x64.ActiveCfg = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|x64.Build.0 = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|x86.ActiveCfg = Release|Any CPU
+		{D011E13A-E882-4F02-BA96-5D65CE142A26}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +104,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4D4FFBF5-AF77-454B-A4E5-8D7875622B00} = {370889CA-928D-4B67-B482-046C689FC514}
 		{3B45AA30-CFDC-46C6-BECC-89163D0154E0} = {25F19F0F-9DA2-42EF-BFA7-0477857DD19D}
+		{D011E13A-E882-4F02-BA96-5D65CE142A26} = {02DCF2E4-57DB-4CB2-A75D-241EACED4C4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99D1A6E6-A391-4472-8124-8049F6F62C26}
