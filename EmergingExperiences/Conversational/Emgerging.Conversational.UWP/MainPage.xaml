@@ -8,7 +8,6 @@
     mc:Ignorable="d"
     d:DesignHeight="800" d:DesignWidth="420"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:C4FTK="using:Coding4Fun.Toolkit.Controls"
     Background="#fefefe">
 
     <Grid>
