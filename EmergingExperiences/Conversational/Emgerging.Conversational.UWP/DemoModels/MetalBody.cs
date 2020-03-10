@@ -22,7 +22,7 @@ namespace Emerging.Conversational.UWP
         {
             data = new List<Datum>();
             data.Add(new Datum {
-                BodyPlainText = " ",
+                BodyPlainText = string.IsNullOrEmpty(message)?"":message,
                 BodyHTML = "<HTML></HTML>",
                 SenderName ="test@test.com",
                 ConversationId = "22342344444",
