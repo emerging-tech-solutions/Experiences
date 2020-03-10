@@ -98,7 +98,6 @@ namespace Emgerging.Conversational.UWP
             KeyboardInputBox.Visibility = Visibility.Visible;
             MicrophoneIcon.Visibility = Visibility.Collapsed;
         }
-
         public void isVoiceEntry()
         {
             isAudioCapture = true;
@@ -108,7 +107,7 @@ namespace Emgerging.Conversational.UWP
             KeyboardInputBox.Visibility = Visibility.Collapsed;
         }
 
-       
+        
 
         private async Task InitializeMediaElements()
         {
@@ -117,12 +116,10 @@ namespace Emgerging.Conversational.UWP
             await mediaCapture.InitializeAsync();
             mediaCapture.Failed += MediaCapture_Failed;
         }
-
         private void MediaCapture_Failed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
         {
             throw new NotImplementedException();
         }
-
         private async void SendAudioForTranslation(string filePath)
         {
             using (FileStream stream = new FileStream(filePath, FileMode.Open))
@@ -138,11 +135,11 @@ namespace Emgerging.Conversational.UWP
                     if (isAudioCapture)
                     {
                         if (speechResult.DisplayText.Length <= 30)
-                            GetBotIntent(txtInputBox.Text);
+                            GetBotIntent(speechResult.DisplayText);
                         else
-                            MetalDetectorDemo(txtInputBox.Text);
+                            MetalDetectorDemo(speechResult.DisplayText);
 
-                        GetBotIntent(speechResult.DisplayText);
+                        
                     }
                     else
                     {
@@ -154,13 +151,12 @@ namespace Emgerging.Conversational.UWP
                 }
             }
         }
-
         private async void MetalDetectorDemo(string message)
         {
-            var postURI = "http://52.173.143.47/api/v1/service/extractor-service/score";
+            var postURI = "http://52.165.20.181/api/v1/service/extractor-service/score";
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer l0nfvZBDyuq5OdZOkwmtaki5xoIRnSpC");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer gxcVokdWKULKW1o8T5eji7n6OHFwKgG0");
                 var content = new MetalBody(message);
                 var json = JsonConvert.SerializeObject(content);
 
@@ -227,13 +223,10 @@ namespace Emgerging.Conversational.UWP
                 return ms.ToArray();
             }
         }
-
         private void MediaCapture_RecordLimitationExceeded(MediaCapture sender)
         {
             throw new NotImplementedException();
         }
-
-
         private async void MicrophoneIcon_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (!isCapturingAudio)
@@ -264,7 +257,6 @@ namespace Emgerging.Conversational.UWP
                 isCapturingAudio = false;
             }
         }
-
         private void KeyboardTextInbox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -278,12 +270,10 @@ namespace Emgerging.Conversational.UWP
                 KeyboardTextInbox.Text = "";
             }
         }
-
         private void EnableKeyboardIcon_Tapped(object sender, TappedRoutedEventArgs e)
         {
             isKeyEntry();
         }
-
         private void EnableMicrophoneIcon_Tapped(object sender, TappedRoutedEventArgs e)
         {
             isVoiceEntry();
