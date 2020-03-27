@@ -8,7 +8,6 @@
     mc:Ignorable="d"
     d:DesignHeight="800" d:DesignWidth="420"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:C4FTK="using:Coding4Fun.Toolkit.Controls"
     Background="#fefefe">
 
     <Grid>
@@ -54,7 +53,7 @@
                 <Border Background="LightBlue"   CornerRadius="3"  Padding="6"
                     Margin="-1,4,0,0"
                     VerticalAlignment="Top">
-                    <TextBlock x:Name="txtOutputBox" Text="Text" TextWrapping="WrapWholeWords" Foreground="Black"/>
+                    <TextBlock x:Name="txtOutputBox" TextWrapping="WrapWholeWords" Foreground="Black"/>
                 </Border>
             </controls:DropShadowPanel>
 
@@ -79,7 +78,7 @@
                     <Border Background="LightGray"   CornerRadius="3"  Padding="6"
                     Margin="14,0,0,0"
                     VerticalAlignment="Top">
-                        <TextBlock x:Name="txtInputBox" Text="Text" TextWrapping="WrapWholeWords" Foreground="Black"/>
+                        <TextBlock x:Name="txtInputBox"  TextWrapping="WrapWholeWords" Foreground="Black"/>
                     </Border>
                 </controls:DropShadowPanel>
                 
