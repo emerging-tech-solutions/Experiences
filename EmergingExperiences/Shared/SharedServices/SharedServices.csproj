@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Lwin Maung &amp; Min Maung</Authors>
+    <Company>Concurrency - Emerging Experiences</Company>
+    <Copyright>2020</Copyright>
+    <PackageProjectUrl>https://github.com/emerging-tech-solutions/Experiences</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/emerging-tech-solutions/Experiences</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
