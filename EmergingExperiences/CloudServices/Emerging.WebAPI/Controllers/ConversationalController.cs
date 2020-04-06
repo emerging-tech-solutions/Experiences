@@ -22,7 +22,7 @@ namespace Emerging.WebAPI.Controllers
             _logger = logger;
         }
         [HttpGet]
-        public string Get ()
+        public string Get()
         {
             return "hello";
         }
@@ -41,6 +41,21 @@ namespace Emerging.WebAPI.Controllers
                 , message
                 ).Wait();
             return botResponse;
+        }
+        [HttpGet]
+        [Route("GetSpeech/{message?}")]
+        public string GetSpeech(string message)
+        {
+            Speech speech = new Speech(new SpeechConfig
+            {
+                APIKey = "e1d70faa757a4424bae02fc3284b0cbc",
+                AppName = "EmergingSpeechRecognitionDemo",
+                AudioFormat = "riff-24khz-16bit-mono-pcm",
+                AzureEndPointUri = "https://northcentralus.tts.speech.microsoft.com/cognitiveservices/v1", //APITokenEndPoint + "/speech/recognition/conversation/cognitiveservices/v1",
+                AzureTokenUri = "https://northcentralus.api.cognitive.microsoft.com/sts/v1.0/issuetoken",// APITokenEndPoint +"/sts/v1.0/issuetoken",
+                AzureRegion = "northcentralus",
+            });
+            return speech.ConvertTextToSpeechBase64(message);
         }
         private BotResponse ProcessIntentToResponse(string botResponse)
         {
