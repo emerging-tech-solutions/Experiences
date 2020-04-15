@@ -64,13 +64,14 @@ namespace Emerging.WebAPI.Controllers
             {
                 var intentwithScore = JsonConvert.DeserializeObject<IntentWithScore>(botResponse);
                 result.Confidence = intentwithScore.Score;
-                switch(intentwithScore.Result.ToLower().Replace("_"," "))
+                result.Intent = intentwithScore.Result;
+                switch (intentwithScore.Result.ToLower().Replace("_"," "))
                 {
                     case "ryerson - order":
                         result.TextResponse = "What product are you looking for?";
                         break;
                     case "ryerson - product":
-                        result.TextResponse = "What type of form is this product?";
+                        result.TextResponse = "What form is this product?";
                         break;
                     case "ryerson - form":
                         result.TextResponse = "Let's get the shape that you want next.";

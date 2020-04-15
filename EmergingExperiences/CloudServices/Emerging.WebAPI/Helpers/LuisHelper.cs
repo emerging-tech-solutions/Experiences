@@ -24,7 +24,7 @@ namespace Emerging.WebAPI.Helpers
                 //This actually calls to LUIS
                 var recognizerResult = await recognizer.RecognizeAsync(turnContext, cancellationToken);
                 var (intent, score) = recognizerResult.GetTopScoringIntent();
-                return new IntentWithScore() { Result = intent, Score = score.ToString() };
+                return new IntentWithScore() { Result = intent, Score = score.ToString()};
             }
             catch (Exception e)
             {
