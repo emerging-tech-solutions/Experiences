@@ -62,8 +62,8 @@
  }
  
  .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
- }
+    margin-top: 30px;
+}
  
 .ms-Button.ms-Button--hero .ms-Button-label {
   color: #0078d7;
@@ -77,4 +77,72 @@
 
 b {
     font-weight: bold;
+}
+
+.emerging-header {
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    align-items: center;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: #0078d7;
+}
+.emerging-main {
+    background-color: yellow;
+}
+.emerging-chatbox {
+    position: absolute;
+    bottom: 4px;
+    width: 100%;
+    background-color: lightgrey;
+    margin-top: 2px;
+    display: table;
+}
+
+.emerging-chatbox .column1 {
+    display: table-cell;
+    width: 20%;
+    margin-top: 4px;
+}
+.emerging-chatbox .column1 .column1items {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    -webkit-flex-direction: column;
+    margin-top: 4px;
+}
+.emerging-chatbox .column2 {
+    display: table-cell;
+    width: 65%;
+    padding-right: 0px;
+    background-color: lightgrey;
+}
+.emerging-chatbox .column2 #keyboardInput {
+    background-color: white;
+    position:absolute;
+    top:1px;
+    width: 65%;
+    height: 100%;
+    border: 0px;
+}
+.emerging-chatbox .column3 {
+    width: 15%;
+    align-items: center;
+    display: table-cell;
+    -webkit-flex-direction: column;
+    margin-top: 4px;
+    background-color: lightgrey;
+}
+.emerging-chatbox .submit {
+    position:absolute;
+    top:0px;
+    width: 15%;
+    height: 100%;
+}
+#container{
+    height: 100%;
 }
