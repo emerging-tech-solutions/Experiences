@@ -11,6 +11,9 @@ export default class App extends React.Component {
     this.state = {
       listItems: []
     };
+    
+    this.url = "data:audio/ogg;base64,";
+    this.audio = new Audio(this.url);
   }
 
   componentDidMount() {
@@ -27,19 +30,121 @@ export default class App extends React.Component {
         {
           icon: "Design",
           primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
+        },
+        {
+          icon: "Design",
+          primaryText: "Create and visualize like a pro"
         }
       ]
     });
   }
-
+  play = () => {
+    this.setState({ play: true, pause: false })
+      this.audio.play();
+    }
+    
+    pause = () => {
+    this.setState({ play: false, pause: true })
+      this.audio.pause();
+    }
   click = async () => {
     this.getBotIntent(keyboardInput.value);
   };
   getBotIntent = async(message) =>{
     var uri = "https://localhost:44337/api/Conversational?message="+message;
-    uri="https://localhost:44337/api/Conversational?message=test";
     uri = "https://emergingtech-api.azurewebsites.net/api/Conversational?message="+message;
-    keyboardInput.value = uri;
 
     fetch(uri,
       {
@@ -49,19 +154,26 @@ export default class App extends React.Component {
             'Content-Type': 'application/json'
         }
       }
-    )
-    .then(res => {
-      keyboardInput.value = res.statusText;
-    })
-    .then(
-      (result) => {
-        //keyboardInput.value = result.Base64Audio;
-      },
-      (error) => {
-        keyboardInput.value = "Test -----" +  error;
-        keyboardInput.value = res.statusText;
-      }
-    );
+    )  
+  .then(async response => {
+            const data = await response.json();
+
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+            else{
+              this.url = "data:audio/ogg;base64,"+data.base64Audio;
+              this.audio = new Audio(this.url);
+             this.play();
+            }
+        })
+        .catch(error => {
+            //this.setState({ errorMessage: error });
+            console.error('There was an error!', error);
+        });
   };
   showSuccess(response){
     keyboardInput.value = "success";
@@ -69,6 +181,7 @@ export default class App extends React.Component {
   showError(error){
     keyboardInput.value = "Test -----" +  error;
   };
+  
   render() {
     // const { title, isOfficeInitialized } = this.props;
 
@@ -87,10 +200,20 @@ export default class App extends React.Component {
           </p>
 
         </HeroList> */}
+      
+        <audio id="voiceAudio" src="{this.state.audioURL}" autoplay></audio> 
+        <section className="emerging-header">
+          <img width="60" height="60" src="assets/logo-filled.png" />
+        </section>
         
-      <section className="emerging-header">
-        <img width="60" height="60" src="assets/logo-filled.png" />
-      </section>
+        <div className="emerging-conversations">
+        <HeroList items={this.state.listItems}>
+          <p className="ms-font-l">
+            Modify the source files, then click <b>Run</b>.
+          </p>
+
+        </HeroList> 
+        </div>
         <div className="emerging-chatbox">
           <div className="column1">
             <div className="column1items">

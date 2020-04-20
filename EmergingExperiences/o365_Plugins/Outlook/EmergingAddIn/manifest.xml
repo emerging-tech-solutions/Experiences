@@ -62,7 +62,7 @@
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
-                <Control xsi:type="Button" id="ActionButton">
+                <!-- <Control xsi:type="Button" id="ActionButton">
                   <Label resid="ActionButton.Label"/>
                   <Supertip>
                     <Title resid="ActionButton.Label"/>
@@ -76,7 +76,7 @@
                   <Action xsi:type="ExecuteFunction">
                     <FunctionName>action</FunctionName>
                   </Action>
-                </Control>
+                </Control> -->
               </Group>
             </OfficeTab>
           </ExtensionPoint>
@@ -98,10 +98,10 @@
         <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
         <bt:String id="ActionButton.Label" DefaultValue="Perform an action"/>
       </bt:ShortStrings>
-      <!-- <bt:LongStrings>
+      <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Opens a pane displaying all available properties."/>
-        <bt:String id="ActionButton.Tooltip" DefaultValue="Perform an action when clicked."/>
-      </bt:LongStrings> -->
+        <!-- <bt:String id="ActionButton.Tooltip" DefaultValue="Perform an action when clicked."/> -->
+      </bt:LongStrings>
     </Resources>
   </VersionOverrides>
 </OfficeApp>

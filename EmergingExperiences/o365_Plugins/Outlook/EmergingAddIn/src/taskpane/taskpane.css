@@ -94,6 +94,16 @@ b {
 .emerging-main {
     background-color: yellow;
 }
+.emerging-conversations{
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    background-color: red;
+    bottom: 80px;
+    margin: 2px 0px, 0px, 0px;
+    overflow-x: hidden; 
+    overflow-x: auto; 
+}
 .emerging-chatbox {
     position: absolute;
     bottom: 4px;

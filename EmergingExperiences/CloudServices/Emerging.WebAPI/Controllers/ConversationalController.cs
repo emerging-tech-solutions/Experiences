@@ -1,6 +1,7 @@
 ﻿using Emerging.WebAPI.Bots;
 using Emerging.WebAPI.Helpers;
 using Emerging.WebAPI.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ namespace Emerging.WebAPI.Controllers
         {
             return "hello";
         }
+        [EnableCors("MyPolicy")]
         [HttpPost]
         public async Task<ActionResult<BotResponse>> Post(string message)
         {
