@@ -98,12 +98,34 @@ b {
     position: absolute;
     top: 80px;
     width: 100%;
-    background-color: red;
+    background-color: #FFFFFF;
     bottom: 80px;
     margin: 2px 0px, 0px, 0px;
     overflow-x: hidden; 
     overflow-x: auto; 
 }
+.emerging-conversations .ConversationBackground{
+    background-color: red;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
+.ConversationItem{
+    background-color: blue;
+    
+}
+.ConversationAIIcon {
+    display: table-cell;
+    width: 20%;
+    margin-top: 4px;
+}
+.Conversation {
+    display: table-cell;
+    width: 80%;
+    padding-right: 0px;
+    background-color: lightgrey;
+}
+
 .emerging-chatbox {
     position: absolute;
     bottom: 4px;

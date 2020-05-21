@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Button, ButtonType, ComboBox } from "office-ui-fabric-react";
 import Header from "./Header";
-import HeroList, { HeroListItem } from "./HeroList";
+import ConversationList from "./ConversationList";
 import Progress from "./Progress";
-/* global Button, Header, HeroList, HeroListItem, Progress */
 
 export default class App extends React.Component {
   constructor(props, context) {
@@ -20,112 +19,28 @@ export default class App extends React.Component {
     this.setState({
       listItems: [
         {
-          icon: "Ribbon",
-          primaryText: "Achieve more with Office integration"
+          isAI : true,
+          Conversation: "Achieve more with Office integration"
         },
         {
-          icon: "Unlock",
-          primaryText: "Unlock features and functionality"
+          isAI : false,
+          Conversation: "Achieve more with Office integration"
         },
         {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
+          isAI : true,
+          Conversation: "Achieve more with Office integration"
         },
         {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
+          isAI : false,
+          Conversation: "Achieve more with Office integration"
         },
         {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
+          isAI : true,
+          Conversation: "Achieve more with Office integration"
         },
         {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
-        },
-        {
-          icon: "Design",
-          primaryText: "Create and visualize like a pro"
+          isAI : false,
+          Conversation: "Achieve more with Office integration"
         }
       ]
     });
@@ -207,12 +122,8 @@ export default class App extends React.Component {
         </section>
         
         <div className="emerging-conversations">
-        <HeroList items={this.state.listItems}>
-          <p className="ms-font-l">
-            Modify the source files, then click <b>Run</b>.
-          </p>
-
-        </HeroList> 
+        <ConversationList items={this.state.listItems}>
+        </ConversationList> 
         </div>
         <div className="emerging-chatbox">
           <div className="column1">
